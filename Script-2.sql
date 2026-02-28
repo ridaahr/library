@@ -38,3 +38,6 @@ VALUES
 ('1984', 'George Orwell', 'Novela', 5, 5),
 ('El Quijote', 'Miguel de Cervantes', 'Clásico', 3, 3),
 ('Clean Code', 'Robert C. Martin', 'Programación', 2, 2);
+ALTER TABLE loans MODIFY return_date DATE NULL;
+
+ALTER TABLE loans ADD COLUMN due_date DATE NOT NULL AFTER loan_date;
