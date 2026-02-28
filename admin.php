@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $author = $_POST['newBookAuthor'];
     $cat    = $_POST['newBookCategory'];
     $copies = $_POST['newBookCopies'];
-    $conn->query("INSERT INTO books (title, author, category, available_copies) VALUES ('$title','$author','$cat',$copies)");
+    $conn->query("INSERT INTO books (title, author, category, available_copies, total_copies) VALUES ('$title','$author','$cat',$copies, $copies)");
     header("Location: admin.php");
     exit;
   }

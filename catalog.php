@@ -40,42 +40,69 @@ $booksPHP = json_encode($books);
     </nav>
 
     <div class="container mt-4">
-        <div class="row" id="books">
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3" id="books">
         </div>
     </div>
 
     <script>
         let books = <?php echo json_encode($books); ?>;
-        console.log(books);
-
-        let booksRow = document.getElementById("books");
+        let showBooks = document.getElementById("books");
 
         for (let book of books) {
-            let div = document.createElement("div");
-            div.classList.add("col", "mb-4");
+            let col = document.createElement("div");
+            col.classList.add("col");
 
-            let title = document.createElement("h3");
+            let card = document.createElement("div");
+            card.classList.add("card", "h-100", "shadow-sm");
+
+            let body = document.createElement("div");
+            body.classList.add("card-body", "d-flex", "flex-column");
+
+            let title = document.createElement("h5");
             title.textContent = book.title;
-            div.appendChild(title);
+            title.classList.add("card-title");
 
             let author = document.createElement("p");
-            author.textContent = book.author;
-            div.appendChild(author);
+            author.textContent = `Autor: ${book.author}`;
+            author.classList.add("card-text", "text-muted", "mb-1");
 
-            let category = document.createElement("p");
+            let category = document.createElement("span");
             category.textContent = book.category;
-            div.appendChild(category);
+            category.classList.add("badge", "text-bg-secondary", "align-self-start", "mb-3");
 
             let available = document.createElement("p");
+            available.classList.add("card-text", "mb-3", "fw-semibold");
+
             if (book.available_copies > 0) {
-                available.style.color = "green";
+                available.classList.add("text-success");
                 available.textContent = `Disponible: ${book.available_copies} copias`;
             } else {
-                available.style.color = "red";
+                available.classList.add("text-danger");
                 available.textContent = "No disponible";
             }
-            div.appendChild(available);
-            booksRow.appendChild(div);
+
+            let spacer = document.createElement("div");
+            spacer.classList.add("mt-auto");
+
+            let button = document.createElement("button");
+            button.textContent = "Pedir préstamo";
+            button.classList.add("btn", "btn-primary", "w-100");
+
+            if (book.available_copies <= 0) {
+                button.disabled = true;
+                button.classList.replace("btn-primary", "btn-secondary");
+            }
+
+            body.appendChild(title);
+            body.appendChild(author);
+            body.appendChild(category);
+            body.appendChild(available);
+            body.appendChild(spacer);
+            body.appendChild(button);
+
+            card.appendChild(body);
+            col.appendChild(card);
+            showBooks.appendChild(col);
         }
     </script>
 
