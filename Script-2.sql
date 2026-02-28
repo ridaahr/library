@@ -41,3 +41,10 @@ VALUES
 ALTER TABLE loans MODIFY return_date DATE NULL;
 
 ALTER TABLE loans ADD COLUMN due_date DATE NOT NULL AFTER loan_date;
+CREATE TABLE settings (
+  id INT PRIMARY KEY,
+  max_loans INT,
+  loan_days INT
+);
+
+INSERT INTO settings VALUES (1, 3, 14);
